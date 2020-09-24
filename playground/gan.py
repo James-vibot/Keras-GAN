@@ -137,8 +137,7 @@ class GAN():
             # If at save interval => save generated image samples
             if epoch % sample_interval == 0:
                 self.sample_images(epoch)
-
-        self.save_model(epoch)
+                self.save_model()
 
     def sample_images(self, epoch):
         r, c = 5, 5
