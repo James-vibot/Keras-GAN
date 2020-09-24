@@ -138,6 +138,8 @@ class GAN():
             if epoch % sample_interval == 0:
                 self.sample_images(epoch)
 
+        self.save_model(epoch)
+
     def sample_images(self, epoch):
         r, c = 5, 5
         noise = np.random.normal(0, 1, (r * c, self.latent_dim))
@@ -155,6 +157,19 @@ class GAN():
                 cnt += 1
         fig.savefig("images/%d.png" % epoch)
         plt.close()
+
+    def save_model(self):
+        def save(model, model_name):
+            model_path = "saved_model/%s.json" % model_name
+            weights_path = "saved_model/%s_weights.hdf5" % model_name
+            options = {"file_arch": model_path,
+                        "file_weight": weights_path}
+            json_string = model.to_json()
+            open(options['file_arch'], 'w').write(json_string)
+            model.save_weights(options['file_weight'])
+
+        save(self.generator, "generator")
+        save(self.discriminator, "discriminator")
 
 
 if __name__ == '__main__':
