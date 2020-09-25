@@ -7,4 +7,4 @@ COPY . /workspace
 
 RUN pip install keras numpy matplotlib
 
-CMD python3 gan.py
+CMD python3 gan_v1.py
